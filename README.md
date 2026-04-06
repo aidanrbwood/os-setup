@@ -53,3 +53,25 @@ ssh-keygen githubs_keys
 ```
 
 Go to github account and then setup pub key there, the `.bashrc` already contains the lines for adding the file to keychain
+
+# Setup fstab to permanently mount smb shares
+
+Install cifs-utils
+
+```
+sudo pacman -S cifs-utils
+```
+
+Create a credentials file at `~/.smbcredentials`, fill out the contents as follows
+
+```
+username=<MY_USER>
+password=<MY_PASSWORD>
+domain=WORKGROUP
+```
+
+Add the following line to `/etc/fstab`
+
+```
+//<MY_IP_ADDR>/<MY_SHARE_NAME> /mnt/<MY_MOUNT_POINT> cifs credentials=/home/<MY_USER>/.smbcredentials,iocharset=utf8,uid=1000,gid=1000,file_mode=0775,dir_mode=0775,_netdev  0  0
+```
