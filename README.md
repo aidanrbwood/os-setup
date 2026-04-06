@@ -56,6 +56,12 @@ Go to github account and then setup pub key there, the `.bashrc` already contain
 
 # Setup fstab to permanently mount smb shares
 
+Make a new mount point
+
+```
+sudo mkdir /mnt/<MY_MOUNT_POINT>
+```
+
 Install cifs-utils
 
 ```
@@ -74,4 +80,24 @@ Add the following line to `/etc/fstab`
 
 ```
 //<MY_IP_ADDR>/<MY_SHARE_NAME> /mnt/<MY_MOUNT_POINT> cifs credentials=/home/<MY_USER>/.smbcredentials,iocharset=utf8,uid=1000,gid=1000,file_mode=0775,dir_mode=0775,_netdev  0  0
+```
+
+# Setup fstab to mount any other non-boot drives
+
+Make a new mount point
+
+```
+sudo mkdir /mnt/<MY_MOUNT_POINT>
+```
+
+Run the following to get the drive UUID
+
+```
+lsblk -f
+```
+
+Add the following line to `/etc/fstab`
+
+```
+UUID=<MY_UUID> /mnt/<MY_MOUNT_POINT> ext4 defaults,noatime 0 2
 ```
